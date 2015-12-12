@@ -1,0 +1,29 @@
+<nav ng-controller="NavbarCtrl" class="navbar navbar-default navbar-sm navbar-fixed-top" ng-dblclick="maximize()">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+    <!-- <div id="navbar"> -->
+      <div class="glyphicon glyphicon-fullscreen fullscreentoggle" title="Fullscreen" ng-click="view.toggleFullscreen()"></div>
+      <ul class="nav navbar-nav">
+        <li *ng-for="#collection of collections" [class.active]="isPath('/collection/'+collection['id'])">
+          <a [router-link]="['./Collection', {'id': collection['id'] }]">{{collection['name']}} <span class="badge">0</span></a>
+        </li>
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+
+        <li [class.active]="isPath('/settings')">
+          <a [router-link]="['./Settings', 'Settings.collections']">Settings</a>
+        </li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>

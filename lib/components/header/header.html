@@ -1,0 +1,17 @@
+<header ng-dblclick="maximize()">
+  <div class="title">Moviestand</div>
+  <ul class="left">
+    <li class="glyphicon glyphicon-fullscreen" title="Fullscreen" (click)="toggleFullscreen()"></li>
+  </ul>
+  <ul class="right">
+    <!-- <li class="glyphicon glyphicon-arrow-left" title="Back" (click)="historyBack()"></li>
+    <li class="glyphicon glyphicon-arrow-right" title="Forward" (click)="historyFwd()"></li>
+    <li>&nbsp;</li> -->
+    <li class="glyphicon glyphicon-refresh" title="Reload" onclick="document.location.reload()"></li>
+    <li class="glyphicon glyphicon-menu-hamburger" title="DevTools" (click)="toggleDevTools()"></li>
+    <li>&nbsp;</li>
+    <li class="glyphicon glyphicon-minus-sign" title="Minimize" (click)="minimize()"></li>
+    <li class="glyphicon glyphicon-plus-sign" title="Maximize" (click)="maximize()"></li>
+    <li class="glyphicon glyphicon-remove-sign" title="Close" (click)="close()"></li>
+  </ul>
+</header>
