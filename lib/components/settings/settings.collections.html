@@ -1,5 +1,5 @@
 <div class="info hidden">Here you can manage your collections. Add, change, remove, or reorder them as you like.
-The first collection on the listis the one that you will see when you open Moviestand.</div>
+The first collection on the list is the one that you will see when you open Moviestand.</div>
 
 <button type="button" class="btn btn-primary addcollection" (click)="newCollection()">
   <span class="glyphicon glyphicon-plus"></span> <span>Create new collection</span>
@@ -8,39 +8,39 @@ The first collection on the listis the one that you will see when you open Movie
 
 <div class="wrapper">
   <ul class="list">
-    <li class="item" *ng-for="#collection of collections" ui-sref-active="active">
-      <a (click)="selectCollection(collection)" class="name">
+    <li class="item" *ngFor="#collection of collections.list" [class.active]="(selectedCollection != null) && (selectedCollection.id == collection.id)">
+      <a (click)="selectedCollection = collection" class="name">
         <span class="glyphicon glyphicon-menu-hamburger"></span>
-        <span> {{collection['name']}}</span>
+        <span> {{collection.name}}</span>
       </a>
       <span class="buttons">
         <!-- <button type="button" class="btn btn-default glyphicon glyphicon-pencil"></button> -->
-        <button type="button" class="btn btn-danger glyphicon glyphicon-remove-circle" ng-click="removeCollection(collection)"></button>
+        <button type="button" class="btn btn-danger glyphicon glyphicon-remove-circle" (click)="removeCollection(collection)"></button>
       </span>
     </li>
   </ul>
 
-  <div class="details" *ng-if="selectedCollection != null">
+  <div class="details" *ngIf="selectedCollection != null">
     <div class="details-wrapper">
       <form name="collectionsdetails">
-        <div class="form-group" [ng-class]="{'has-error': selectedCollection['name'].length > 0}">
+        <div class="form-group" [ngClass]="{'has-error': selectedCollection.name.length > 0}">
         <!-- <div class="form-group"> -->
           <label for="name">Collection name</label>
-          <!-- <span class="error" *ng-if="collectionsdetails.name.$error.required">Required!</span> -->
-          <input type="text" name="name" required class="form-control collectionname" [(ng-model)]="selectedCollection['name']" placeholder="Enter name">
+          <!-- <span class="error" *ngIf="collectionsdetails.name.$error.required">Required!</span> -->
+          <input type="text" name="name" required class="form-control collectionname" [(ngModel)]="selectedCollection.name" placeholder="Enter name">
         </div>
         <div class="form-group">
           <label for="folder">Folder</label>
-          <input type="text" name="folder" readonly class="form-control collectionfolder" [(ng-model)]="selectedCollection['folders'][0]['path']" placeholder="Click to select folder">
+          <input type="text" name="folder" readonly class="form-control collectionfolder" [(ngModel)]="selectedCollection.folders[0]['path']" placeholder="Click to select folder">
         </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" [(ng-model)]="selectedCollection['folders'][0]['recursive']"> Include subfolders
+            <input type="checkbox" [(ngModel)]="selectedCollection.folders[0]['recursive']"> Include subfolders
           </label>
         </div>
         <div class="form-group">
           <label for="extensions">File extensions</label>
-          <input type="text" name="extensions" class="form-control extensions" [(ng-model)]="selectedCollection['extensions']" placeholder="Enter extensions separated by comma, like so: .mp4, .mkv, .avi">
+          <input type="text" name="extensions" class="form-control extensions" [(ngModel)]="selectedCollection.extensions" placeholder="Enter extensions separated by comma, like so: .mp4, .mkv, .avi">
         </div>
       </form>
     </div>

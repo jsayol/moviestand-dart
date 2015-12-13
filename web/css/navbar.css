@@ -132,6 +132,7 @@ body.fullscreen .navbar > .container {
   padding-top: 3px;
   padding-bottom: 3px;
   font-weight: normal;
+  font-size: small;
 }
 
 .navbar.navbar-sm .navbar-form .btn-group {

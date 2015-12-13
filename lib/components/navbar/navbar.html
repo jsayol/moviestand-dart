@@ -1,4 +1,4 @@
-<nav ng-controller="NavbarCtrl" class="navbar navbar-default navbar-sm navbar-fixed-top" ng-dblclick="maximize()">
+<nav class="navbar navbar-default navbar-sm navbar-fixed-top" ngDblclick="maximize()">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -10,18 +10,54 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
     <!-- <div id="navbar"> -->
-      <div class="glyphicon glyphicon-fullscreen fullscreentoggle" title="Fullscreen" ng-click="view.toggleFullscreen()"></div>
+      <div class="glyphicon glyphicon-fullscreen fullscreentoggle" title="Fullscreen" ngClick="view.toggleFullscreen()"></div>
       <ul class="nav navbar-nav">
-        <li *ng-for="#collection of collections" [class.active]="isPath('/collection/'+collection['id'])">
-          <a [router-link]="['./Collection', {'id': collection['id'] }]">{{collection['name']}} <span class="badge">0</span></a>
+        <li *ngFor="#collection of collections.list" [class.active]="isPath('/collection/'+collection.id)">
+          <a [routerLink]="['./Collection', {'id': collection.id }]" (click)="selectedCollection=collection">{{ collection.name }} <span class="badge">{{ collection.count }}</span></a>
         </li>
+
+        <li class="dropdown" *ngIf="isPath('/collection/') && (selectedCollection != null)">
+          <a (click)="genreDropdown.style.display = genreDropdown.style.display=='block' ? 'none' : 'block'" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Genre <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu" #genreDropdown>
+            <li [class.active]="!filter.genre"><a (click)="filter.genre=null">All</a></li>
+            <li class="divider"></li>
+            <li *ngFor="#genre of selectedCollection.genres | orderBy:'name'" [class.active]="genre['id']==filter.genre">
+              <a (click)="filter.genre=genre['id']">
+                <span class="countbybadge"><span class="badge">{{genre['count']}}</span></span> {{genre['name']}}
+              </a>
+            </li>
+          </ul>
+        </li>
+
 
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
 
+        <form class="navbar-form navbar-left" role="search" ng-if="$state.is('collection') && currCollection">
+          <div class="form-group has-feedback">
+            <input [(ngModel)]="filter.query" type="text" class="form-control searchbox" placeholder="Search">
+            <i class="glyphicon glyphicon-search form-control-feedback"></i>
+          </div>
+        </form>
+
+        <div class="btn-group navbar-form navbar-left viewbuttons" data-toggle="buttons" ng-if="$state.is('collection') && currCollection">
+          <label class="btn btn-default glyphicon glyphicon-th" ng-class="{active: settings.view.mode=='grid'}" title="Grid" ng-click="view.mode='grid'">
+            <input type="radio" name="viewMode" value="grid">
+          </label>
+          <label class="btn btn-default glyphicon glyphicon-th-list" ng-class="{active: settings.view.mode=='list'}" title="List" ng-click="view.mode='list'">
+            <input type="radio" name="viewMode" value="list">
+          </label>
+        </div>
+
+        <div class="navbar-form navbar-left" data-toggle="buttons" ng-if="$state.is('collection') && currCollection">
+          <label class="btn btn-default glyphicon" [ngClass]="{'glyphicon-eye-close': filter.hideWatched, 'glyphicon-eye-open': !filter.hideWatched}" title="Show/hide watched movies" ng-click="filter.hideWatched=!filter.hideWatched">
+            <input type="checkbox" name="hideWatched" [(ngModel)]="filter.hideWatched">
+          </label>
+        </div>
+
         <li [class.active]="isPath('/settings')">
-          <a [router-link]="['./Settings', 'Settings.collections']">Settings</a>
+          <a [routerLink]="['./Settings', 'Settings.collections']" (click)="selectedCollection=null">Settings</a>
         </li>
       </ul>
     </div><!--/.nav-collapse -->

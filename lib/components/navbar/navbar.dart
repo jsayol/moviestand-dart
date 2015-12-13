@@ -3,22 +3,25 @@
 
 library moviestand.navbar;
 
-import 'package:angular2/angular2.dart' show Component, NgFor;
+import 'package:angular2/angular2.dart' show Component, FORM_DIRECTIVES, NgFor, NgClass, NgIf;
 import 'package:angular2/router.dart' show Location, RouterLink;
 import 'package:moviestand/services/collections.dart';
+import 'package:moviestand/pipes.dart';
+import 'package:moviestand/filters.dart';
 
 @Component(
     selector: 'ms-navbar',
     templateUrl: 'navbar.html',
-    viewProviders: const [CollectionsService, Location],
-    directives: const [RouterLink, NgFor])
+    pipes: const [OrderByPipe],
+    viewProviders: const [Location, FilterFactory, CollectionsService],
+    directives: const [FORM_DIRECTIVES, RouterLink, NgFor, NgClass, NgIf])
 class NavBar {
   Location location;
-  List<Map> collections;
+  FilterFactory filter;
+  CollectionsService collections;
+  Collection selectedCollection;
 
-  NavBar(CollectionsService collectionsService, this.location) {
-    collections = collectionsService.collections;
-  }
+  NavBar(this.location, this.filter, this.collections);
 
   bool isPath(path) => path == location.path() ||
       ((path.length > 0) && (location.path().indexOf(path) == 0));

@@ -6,12 +6,17 @@ import 'package:angular2/angular2.dart';
 
 @Injectable()
 class Electron {
-  final _Console console = new _Console();
+  static Electron _obj = new Electron._new();
+  static final _Console console = new _Console();
   final _RequireProxy shell = new _RequireProxy('shell');
   final _RequireProxy remote = new _RequireProxy('remote');
   _BrowserWindow _window;
 
-  Electron() {
+  factory Electron() {
+    return _obj;
+  }
+
+  Electron._new() {
     _window = new _BrowserWindow(remote);
   }
 

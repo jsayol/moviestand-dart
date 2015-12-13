@@ -4,31 +4,22 @@
 library moviestand.settings.collections;
 
 import 'package:angular2/angular2.dart'
-    show Component, NgFor, NgClass, NgIf, NgModel;
+    show Component, FORM_DIRECTIVES, NgFor, NgClass, NgIf;
 import 'package:moviestand/services/collections.dart';
-import 'package:moviestand/electron/electron.dart';
+// import 'package:moviestand/electron/electron.dart';
 
 @Component(
     selector: 'ms-settings-collections',
     templateUrl: 'settings.collections.html',
-    viewProviders: const [Electron, CollectionsService],
-    directives: const [NgFor, NgClass, NgIf, NgModel])
+    viewProviders: const [CollectionsService],
+    directives: const [FORM_DIRECTIVES, NgFor, NgClass, NgIf])
 class SettingsCollections {
-  Electron electron;
-  CollectionsService collectionsService;
-  List<Map> collections;
+  CollectionsService collections;
   Map selectedCollection;
 
-  SettingsCollections(this.electron, this.collectionsService) {
-    collections = collectionsService.collections;
-  }
+  SettingsCollections(this.collections) {}
 
   void newCollection() {}
 
   void removeCollection(collection) {}
-
-  void selectCollection(collection) {
-    selectedCollection = collection;
-    electron.console.log("selectedCollection = ${selectedCollection['name']}");
-  }
 }

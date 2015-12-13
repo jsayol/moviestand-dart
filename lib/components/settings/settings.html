@@ -1,10 +1,10 @@
 <div class="settings-container">
-  <!-- <div class="close glyphicon glyphicon-remove" ng-click="goback()"></div> -->
+  <!-- <div class="close glyphicon glyphicon-remove" ngClick="goback()"></div> -->
 
   <nav class="menu">
     <ul class="list">
-      <li *ng-for="#entry of entries" class="item" [class.disabled]="entry['disabled']" [class.active]="isPath(entry['path'])" [router-link]="['./Settings.'+entry['path']]" title="{{entry['disabled'] ? entry['name']+' coming soon...' : ''}}">
-        <span [ng-class]="'glyphicon glyphicon-'+entry['icon']"></span> {{entry['name']}}
+      <li *ngFor="#entry of entries" class="item" [class.disabled]="entry['disabled']" [class.active]="isPath(entry['path'])" [routerLink]="['./Settings.'+entry['path']]" title="{{entry['disabled'] ? entry['name']+' coming soon...' : ''}}">
+        <span [ngClass]="'glyphicon glyphicon-'+entry['icon']"></span> {{entry['name']}}
       </li>
     </ul>
   </nav>

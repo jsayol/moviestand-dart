@@ -22,9 +22,9 @@ main() {
     provide(ROUTER_PRIMARY_COMPONENT, useValue: Moviestand),
 
     // The base path of your application
-    provide(APP_BASE_HREF, useValue: '/')
+    provide(APP_BASE_HREF, useValue: '/'),
 
     // uncomment this if you want to use '#' in your url
-    , provide(LocationStrategy, useClass: HashLocationStrategy)
+    provide(LocationStrategy, useClass: HashLocationStrategy)
   ]);
 }
